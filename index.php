@@ -44,19 +44,32 @@
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
-                    <form id="loginForm">
-                        <input class="form-control me-2" type="text" id="loginEmail" placeholder="Email" required>
-                        <input class="form-control me-2" type="password" id="loginPsw" placeholder="Password" required>
-                        <input class="btn btn-outline-success" id="loginButton" type="submit" value="Login" required>
-                    </form>
-                    <form id="registerForm">
-                        <input class="form-control me-2" type="text" id="registerEmail" placeholder="Email" required>
-                        <input class="form-control me-2" type="password" id="registerPsw" placeholder="Password" required>
-                        <input class="form-control me-2" type="password" id="confirmPsw" placeholder="Confirm Password" required>
-                        <input class="btn btn-outline-success" id="registerButton" type="submit" value="Register">
-                    </form>
-                    <a href="#" id="register">Don't have an account?</a>
-                    <a href="#" id="login">Have already an account?</a>
+                    <?php
+                        if(isset($_SESSION["user"]))
+                        {
+                            echo '
+                                <a href="#" id="logout">Logout</a>
+                            ';
+                        }
+                        else
+                        {
+                            echo '
+                                <form id="loginForm">
+                                    <input class="form-control me-2" type="text" id="loginEmail" placeholder="Email" required>
+                                    <input class="form-control me-2" type="password" id="loginPsw" placeholder="Password" required>
+                                    <input class="btn btn-outline-success" id="loginButton" type="submit" value="Login" required>
+                                </form>
+                                <form id="registerForm">
+                                    <input class="form-control me-2" type="text" id="registerEmail" placeholder="Email" required>
+                                    <input class="form-control me-2" type="password" id="registerPsw" placeholder="Password" required>
+                                    <input class="form-control me-2" type="password" id="confirmPsw" placeholder="Confirm Password" required>
+                                    <input class="btn btn-outline-success" id="registerButton" type="submit" value="Register">
+                                </form>
+                                <a href="#" id="register">Dont have an account?</a>
+                                <a href="#" id="login">Have already an account?</a>
+                            ';
+                        }
+                    ?>
                 </div>
             </div>
         </div>
@@ -236,6 +249,44 @@
                     textStatus, errorThrown
                 );
             });
+        })
+
+        $(document).on("click" , ".edit" , function()
+        {
+            var id = $(this).attr("id");
+            console.log(id);
+            request = $.ajax({
+                url: "php/modifyArticle.php",
+                type: "POST",
+                data: {
+                    id: id
+                }
+            });
+
+            request.done(function (response, textStatus, jqXHR){
+                request2 = $.ajax({
+                    url: "php/seeArticles.php",
+                    type: "GET"
+                });
+
+                request2.done(function (response, textStatus, jqXHR){
+                    $("#articles").html(response);
+                });
+
+                request2.fail(function (jqXHR, textStatus, errorThrown){
+                    console.error(
+                        "The following error occurred: "+
+                        textStatus, errorThrown
+                    );
+                });
+            });
+
+            request.fail(function (jqXHR, textStatus, errorThrown){
+                console.error(
+                    "The following error occurred: "+
+                    textStatus, errorThrown
+                );
+            });            
         })
     });
 </script>

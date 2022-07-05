@@ -1,5 +1,4 @@
 <?php
-    //delete article from json file
     $path = "../things/articles.json";
     $fileJson = file_get_contents($path);
     $arrEx = json_decode($fileJson, true);

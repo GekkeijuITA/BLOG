@@ -16,14 +16,13 @@
     }
     else{
         foreach($arrEx as $article){
-            echo "<div class='article'>";
-            echo "<h1>" . $article["id"] . "</h1>";
-            echo "<h2>".$article["title"]."</h2>";
-            echo "<p class='text-muted'>".$article["datetime"]."</p>";
-            echo "<p>".$article["text"]."</p>";
+            echo "<div class='article mt-1' style='border: 1px solid black'>";
+            echo "<h2 class='ms-2'>".$article["title"]."</h2>";
+            echo "<p class='text-muted ms-2'>".$article["datetime"]."</p>";
+            echo "<p class='ms-2'>".$article["text"]."</p>";
             if($ADMIN)
             {
-                echo "<a href='#' class='edit' id='ed-".$article["id"]."'>Edit</a>";
+                echo "<a href='#' class='edit ms-2' id='ed-".$article["id"]."'>Edit</a>";
                 echo "&nbsp";
                 echo "<a href='#' class='delete' id='del-".$article["id"]."'>Delete</a>";
             }
