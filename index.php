@@ -1,4 +1,5 @@
 <?php
+    session_start();
     $host = "localhost";
     $user = "root";
     $password = "";
@@ -9,6 +10,8 @@
     {
         die("Connection failed: " . mysqli_connect_error());
     }
+
+    $ADMIN = FALSE;
 
     if(isset($_SESSION["user"]))
     {
@@ -34,18 +37,72 @@
             <a class="navbar-brand" href="#">Lorenzo's Blog</a>
         </div>
     </nav>
-    <div id="main">
+    <div id="main" class="mt-2 ms-2 me-2">
         <div id="articles">
             articles
         </div>
-        <div id="dashboard">
-            dashboard
-        </div>
-        <div id="addArticle">
-            addArticle
-        </div>
+        <?php
+            if($ADMIN)
+            {
+                echo '
+                    <div id="addArticle">
+                        <input type="text" name="newArticleTitle" placeholder="Title" id="title">
+                        <input type="textarea" name="newArticleContent" placeholder="Content" id="content">
+                        <input type="submit" value="Pubblica" id="addArticleButton">
+                    </div>                
+                ';
+            }
+        ?>
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function()
+    {
+        $("#articles").load("php/seeArticles.php");
+
+        $("#addArticleButton").click(function()
+        {
+            var title = $("#title").val();
+            var content = $("#content").val();
+            request = $.ajax({
+                url: "php/writeArticle.php",
+                type: "POST",
+                data: {
+                    title: title,
+                    content: content
+                }
+            });
+
+            request.done(function (response, textStatus, jqXHR){
+                request2 = $.ajax({
+                    url: "php/seeArticles.php",
+                    type: "GET"
+                });
+
+                request2.done(function (response, textStatus, jqXHR){
+                    $("#articles").html(response);
+                });
+
+                request2.fail(function (jqXHR, textStatus, errorThrown){
+                    console.error(
+                        "The following error occurred: "+
+                        textStatus, errorThrown
+                    );
+                });
+
+                $("#title").val("");
+                $("#content").val("");
+            });
+
+            request.fail(function (jqXHR, textStatus, errorThrown){
+                console.error(
+                    "The following error occurred: "+
+                    textStatus, errorThrown
+                );
+            });
+        });
+    });
+</script>
 </html>
