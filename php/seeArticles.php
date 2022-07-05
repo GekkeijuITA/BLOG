@@ -3,7 +3,7 @@
     $ADMIN = FALSE;
     if(isset($_SESSION["user"]))
     {
-        if($_SESSION["user"] == 0)
+        if($_SESSION["user"] == 1)
         {
             $ADMIN = TRUE;
         }
@@ -17,14 +17,15 @@
     else{
         foreach($arrEx as $article){
             echo "<div class='article'>";
+            echo "<h1>" . $article["id"] . "</h1>";
             echo "<h2>".$article["title"]."</h2>";
             echo "<p class='text-muted'>".$article["datetime"]."</p>";
             echo "<p>".$article["text"]."</p>";
             if($ADMIN)
             {
-                echo "<a href='#' id='ed-".$article["id"]."'>Edit</a>";
+                echo "<a href='#' class='edit' id='ed-".$article["id"]."'>Edit</a>";
                 echo "&nbsp";
-                echo "<a href='#' id='del-".$article["id"]."'>Delete</a>";
+                echo "<a href='#' class='delete' id='del-".$article["id"]."'>Delete</a>";
             }
             echo "</div>";
         }

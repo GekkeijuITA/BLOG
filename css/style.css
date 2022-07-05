@@ -14,7 +14,6 @@
 #articles
 {
     width: 100%;
-    overflow: auto;
     margin-bottom: 5%;
 }
 @media screen and (max-width: 600px)
@@ -44,4 +43,25 @@
 #articles,#dashboard,#addArticle
 {
     border: 1px solid black;
+}
+
+.offcanvas-body form
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.offcanvas-body form input
+{
+    margin-top: 5px;
+}
+
+#registerForm
+{
+    display: none;
+}
+
+#login
+{
+    display: none;
 }
