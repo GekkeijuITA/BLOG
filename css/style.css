@@ -1,0 +1,41 @@
+#main
+{
+    display: flex;
+    flex-direction: row;
+}
+@media screen and (max-width: 600px)
+{
+    #main
+    {
+        flex-direction: column;
+    }
+}
+
+#articles
+{
+    background: red;
+    width: 50%;
+}
+@media screen and (max-width: 600px)
+{
+    #articles
+    {
+        width: 100%;
+    }
+}
+
+#counter
+{
+    position: relative;
+    left: var(--widthScreen);
+    background: blue;
+    width: 10%;
+}
+@media screen and (max-width: 600px)
+{
+    #counter
+    {
+        width: 100%;
+    }
+}
+
