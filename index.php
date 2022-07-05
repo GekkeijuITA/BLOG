@@ -253,40 +253,95 @@
 
         $(document).on("click" , ".edit" , function()
         {
+            parent = $(this).parent();
+            parent.children("#title").html("<input type='text' id='modTitle' value='" + parent.children("#title").text() + "'>");
+            parent.children("#content").html("<textarea id='modContent'>" + parent.children("#content").text() + "</textarea>");
             var id = $(this).attr("id");
-            console.log(id);
-            request = $.ajax({
-                url: "php/modifyArticle.php",
-                type: "POST",
-                data: {
-                    id: id
+            $(document).on("keyup" , function(e)
+            {
+                if(e.keyCode == 13)
+                {
+                    console.log(id);
+                    request = $.ajax({
+                        url: "php/modifyArticle.php",
+                        type: "POST",
+                        data: {
+                            id: id,
+                            title: $("#modTitle").val(),
+                            content: $("#modContent").val()
+                        }
+                    });
+
+                    request.done(function (response, textStatus, jqXHR){
+                        console.log(response);
+                        request2 = $.ajax({
+                            url: "php/seeArticles.php",
+                            type: "GET"
+                        });
+
+                        request2.done(function (response, textStatus, jqXHR){
+                            $("#articles").html(response);
+                        });
+
+                        request2.fail(function (jqXHR, textStatus, errorThrown){
+                            console.error(
+                                "The following error occurred: "+
+                                textStatus, errorThrown
+                            );
+                        });
+                    });
+
+                    request.fail(function (jqXHR, textStatus, errorThrown){
+                        console.error(
+                            "The following error occurred: "+
+                            textStatus, errorThrown
+                        );
+                    });
+                }                
+            });
+
+            $(document).on("click" , function(e)
+            {
+                if($(e.target).is(parent) || $(e.target).is(".delete"))
+                {
+                    console.log(id);
+                    request = $.ajax({
+                        url: "php/modifyArticle.php",
+                        type: "POST",
+                        data: {
+                            id: id,
+                            title: $("#modTitle").val(),
+                            content: $("#modContent").val()
+                        }
+                    });
+
+                    request.done(function (response, textStatus, jqXHR){
+                        console.log(response);
+                        request2 = $.ajax({
+                            url: "php/seeArticles.php",
+                            type: "GET"
+                        });
+
+                        request2.done(function (response, textStatus, jqXHR){
+                            $("#articles").html(response);
+                        });
+
+                        request2.fail(function (jqXHR, textStatus, errorThrown){
+                            console.error(
+                                "The following error occurred: "+
+                                textStatus, errorThrown
+                            );
+                        });
+                    });
+
+                    request.fail(function (jqXHR, textStatus, errorThrown){
+                        console.error(
+                            "The following error occurred: "+
+                            textStatus, errorThrown
+                        );
+                    });
                 }
-            });
-
-            request.done(function (response, textStatus, jqXHR){
-                request2 = $.ajax({
-                    url: "php/seeArticles.php",
-                    type: "GET"
-                });
-
-                request2.done(function (response, textStatus, jqXHR){
-                    $("#articles").html(response);
-                });
-
-                request2.fail(function (jqXHR, textStatus, errorThrown){
-                    console.error(
-                        "The following error occurred: "+
-                        textStatus, errorThrown
-                    );
-                });
-            });
-
-            request.fail(function (jqXHR, textStatus, errorThrown){
-                console.error(
-                    "The following error occurred: "+
-                    textStatus, errorThrown
-                );
-            });            
+            })          
         })
     });
 </script>
