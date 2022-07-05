@@ -11,3 +11,30 @@
     }
 }
 
+#articles
+{
+    background: red;
+    width: 70%;
+}
+@media screen and (max-width: 600px)
+{
+    #articles
+    {
+        width: 100%;
+    }
+}
+
+#dashboard
+{
+    position: relative;
+    background: blue;
+    width: 30%;
+}
+@media screen and (max-width: 600px)
+{
+    #dasboard
+    {
+        width: 100%;
+    }
+}
+
