@@ -1,3 +1,7 @@
+body,html
+{
+    overflow: hidden;
+}
 #main
 {
     display: flex;
@@ -15,6 +19,7 @@
 {
     background: red;
     width: 70%;
+    overflow: auto;
 }
 @media screen and (max-width: 600px)
 {
@@ -26,9 +31,10 @@
 
 #dashboard
 {
-    position: relative;
+    position: fixed;
     background: blue;
     width: 30%;
+    right: 0;
 }
 @media screen and (max-width: 600px)
 {
@@ -36,5 +42,14 @@
     {
         width: 100%;
     }
+}
+
+#addArticle
+{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: green;
 }
 

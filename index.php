@@ -1,3 +1,23 @@
+<?php
+    $host = "localhost";
+    $user = "root";
+    $password = "";
+    $dbName = "my_blog";
+
+    $conn = mysqli_connect($host, $user, $password, $dbName);
+    if(!$conn)
+    {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    if(isset($_SESSION["user"]))
+    {
+        if($_SESSION["user"] == 0)
+        {
+            $ADMIN = TRUE;
+        }
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +40,9 @@
         </div>
         <div id="dashboard">
             dashboard
+        </div>
+        <div id="addArticle">
+            addArticle
         </div>
     </div>
 </body>
