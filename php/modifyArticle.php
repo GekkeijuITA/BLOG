@@ -19,6 +19,7 @@
             }
         }
 
+        // TODO: #1 - Take the article with the id from the url and modify it with the new values
         echo "JSON: ".$article["id"]."[".$index."]"."ID: ".$id[1]."\n";
         echo "Titolo: ".$arrEx[$index]["title"]."\n";
         echo "Contenuto: ".$arrEx[$index]["text"]."\n";
