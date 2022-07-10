@@ -19,6 +19,8 @@
         {
             $ADMIN = TRUE;
         }
+
+        echo $_SESSION["user"];
     }
 ?>
 <!DOCTYPE html>
@@ -55,8 +57,8 @@
                         {
                             echo '
                                 <form id="loginForm">
-                                    <input class="form-control me-2" type="text" id="loginEmail" placeholder="Email" required>
-                                    <input class="form-control me-2" type="password" id="loginPsw" placeholder="Password" required>
+                                    <input class="form-control me-2" type="text" name="email" id="loginEmail" placeholder="Email" required>
+                                    <input class="form-control me-2" type="password" name="password" id="loginPsw" placeholder="Password" required>
                                     <input class="btn btn-outline-success" id="loginButton" type="submit" value="Login" required>
                                 </form>
                                 <form id="registerForm">
@@ -162,10 +164,7 @@
             request = $.ajax({
                 url: "php/login.php",
                 type: "POST",
-                data: {
-                    email: email,
-                    psw: psw
-                }
+                data: $("#loginForm").serialize()
             });
 
             request.done(function (response, textStatus, jqXHR){
