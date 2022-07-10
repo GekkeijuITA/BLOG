@@ -145,7 +145,40 @@
             $(this).hide();
         });
 
+        //login ajax
         $("#loginButton").click(function()
+        {
+            var email = $("#loginEmail").val();
+            var psw = $("#loginPsw").val();
+            request = $.ajax({
+                url: "php/login.php",
+                type: "POST",
+                data: {
+                    email: email,
+                    psw: psw
+                }
+            });
+
+            request.done(function (response, textStatus, jqXHR){
+                if(response == "1")
+                {
+                    window.location.reload();
+                }
+                else
+                {
+                    alert("Login failed");
+                }
+            });
+
+            request.fail(function (jqXHR, textStatus, errorThrown){
+                console.error(
+                    "The following error occurred: "+
+                    textStatus, errorThrown
+                );
+            });
+        });
+
+        /*$("#loginButton").click(function()
         {
             request = $.ajax({
                 url: "php/login.php",
@@ -166,7 +199,7 @@
                     textStatus, errorThrown
                 );
             });
-        });
+        });*/
 
         $("#registerButton").click(function()
         {
