@@ -159,8 +159,6 @@
 
         $("#loginButton").click(function()
         {
-            var email = $("#loginEmail").val();
-            var psw = $("#loginPsw").val();
             request = $.ajax({
                 url: "php/login.php",
                 type: "POST",
