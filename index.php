@@ -1,15 +1,5 @@
 <?php
     session_start();
-    $host = "localhost";
-    $user = "root";
-    $password = "";
-    $dbName = "my_blog";
-
-    $conn = mysqli_connect($host, $user, $password, $dbName);
-    if(!$conn)
-    {
-        die("Connection failed: " . mysqli_connect_error());
-    }
 
     $ADMIN = FALSE;
 
@@ -19,8 +9,6 @@
         {
             $ADMIN = TRUE;
         }
-
-        echo $_SESSION["user"];
     }
 ?>
 <!DOCTYPE html>
