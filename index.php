@@ -44,15 +44,13 @@
                         else
                         {
                             echo '
-                                <form id="loginForm">
-                                    <input class="form-control me-2" type="text" name="email" id="loginEmail" placeholder="Email" required>
-                                    <input class="form-control me-2" type="password" name="password" id="loginPsw" placeholder="Password" required>
-                                    <input class="btn btn-outline-success" id="loginButton" type="submit" value="Login" required>
-                                </form>
+                                    <input class="form-control me-2" type="text" name="email" id="loginEmail" placeholder="Email">
+                                    <input class="form-control me-2" type="password" name="password" id="loginPsw" placeholder="Password">
+                                    <button class="btn btn-outline-success" id="loginButton">Login</button>
                                 <form id="registerForm">
-                                    <input class="form-control me-2" type="text" id="registerEmail" placeholder="Email" required>
-                                    <input class="form-control me-2" type="password" id="registerPsw" placeholder="Password" required>
-                                    <input class="form-control me-2" type="password" id="confirmPsw" placeholder="Confirm Password" required>
+                                    <input class="form-control me-2" type="text" id="registerEmail" placeholder="Email">
+                                    <input class="form-control me-2" type="password" id="registerPsw" placeholder="Password">
+                                    <input class="form-control me-2" type="password" id="confirmPsw" placeholder="Confirm Password">
                                     <input class="btn btn-outline-success" id="registerButton" type="submit" value="Register">
                                 </form>
                                 <a href="#" id="register">Dont have an account?</a>
@@ -145,11 +143,11 @@
             $(this).hide();
         });
 
-        //login ajax
         $("#loginButton").click(function()
         {
             var email = $("#loginEmail").val();
             var psw = $("#loginPsw").val();
+            console.log(email + " " + psw);
             request = $.ajax({
                 url: "php/login.php",
                 type: "POST",
@@ -157,33 +155,6 @@
                     email: email,
                     psw: psw
                 }
-            });
-
-            request.done(function (response, textStatus, jqXHR){
-                if(response == "1")
-                {
-                    window.location.reload();
-                }
-                else
-                {
-                    alert("Login failed");
-                }
-            });
-
-            request.fail(function (jqXHR, textStatus, errorThrown){
-                console.error(
-                    "The following error occurred: "+
-                    textStatus, errorThrown
-                );
-            });
-        });
-
-        /*$("#loginButton").click(function()
-        {
-            request = $.ajax({
-                url: "php/login.php",
-                type: "POST",
-                data: $("#loginForm").serialize()
             });
 
             request.done(function (response, textStatus, jqXHR){
@@ -199,7 +170,7 @@
                     textStatus, errorThrown
                 );
             });
-        });*/
+        });
 
         $("#registerButton").click(function()
         {
@@ -360,6 +331,26 @@
                     });
                 }
             })          
+        })
+
+        $(document).on("click" , "#logout" , function()
+        {
+            request = $.ajax({
+                url: "php/logout.php",
+                type: "GET"
+            });
+
+            request.done(function (response, textStatus, jqXHR){
+                console.log(response);
+                location.reload();
+            });
+
+            request.fail(function (jqXHR, textStatus, errorThrown){
+                console.error(
+                    "The following error occurred: "+
+                    textStatus, errorThrown
+                );
+            });
         })
     });
 </script>
