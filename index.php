@@ -87,8 +87,9 @@
     {
         $("#articles").load("php/seeArticles.php");
 
-        function writeArticle()
+        function writeArticle(e)
         {
+            e.preventDefault();
             var title = $("#newArticleTitle").val();
             var content = $("#newArticleContent").val();
             if(title != "" && content != "")
@@ -136,13 +137,15 @@
             }
         }
 
-        $("#addArticleButton").click(writeArticle());
+        $("#addArticleButton").on("click" , function(e){
+            writeArticle(e);
+        });
 
         $("body").keypress(function(e)
         {
             if(e.which == 13)
             {
-                writeArticle();
+                writeArticle(e);
             }
         });
 
