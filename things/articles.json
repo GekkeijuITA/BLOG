@@ -1,37 +1,8 @@
 [
     {
         "id": 1,
-        "title": "4",
-        "text": "",
-        "datetime": "05-07-2022 14:40:03",
-        "modified": ""
-    },
-    {
-        "id": 2,
-        "title": "4",
-        "text": "",
-        "datetime": "05-07-2022 14:57:18",
-        "modified": ""
-    },
-    {
-        "id": 3,
-        "title": "2",
-        "text": "",
-        "datetime": "05-07-2022 14:57:18",
-        "modified": ""
-    },
-    {
-        "id": 4,
-        "title": "",
-        "text": "",
-        "datetime": "05-07-2022 14:57:18",
-        "modified": ""
-    },
-    {
-        "id": 5,
-        "title": "",
-        "text": "",
-        "datetime": "05-07-2022 14:57:18",
-        "modified": ""
+        "title": "Blog completato",
+        "text": "Yay oggi ho finito la parte essenziale del blog sono contento!",
+        "datetime": "19-07-2022 11:57:28"
     }
 ]

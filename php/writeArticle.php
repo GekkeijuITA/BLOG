@@ -8,8 +8,8 @@
         "id" => $lastId + 1,
         "title" => $_POST["title"],
         "text" => $_POST["content"],
-        "datetime" => date("d-m-Y H:i:s"),
-        "modified" => ""
+        "datetime" => date("d-m-Y H:i:s")/*,
+        "modified" => ""*/
     );
 
     $arrEx[] = $arr;

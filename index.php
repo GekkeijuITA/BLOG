@@ -44,15 +44,17 @@
                         else
                         {
                             echo '
+                                <div id="loginForm">
                                     <input class="form-control me-2" type="text" name="email" id="loginEmail" placeholder="Email">
                                     <input class="form-control me-2" type="password" name="password" id="loginPsw" placeholder="Password">
                                     <button class="btn btn-outline-success" id="loginButton">Login</button>
-                                <form id="registerForm">
+                                </div>
+                                <div id="registerForm">
                                     <input class="form-control me-2" type="text" id="registerEmail" placeholder="Email">
                                     <input class="form-control me-2" type="password" id="registerPsw" placeholder="Password">
                                     <input class="form-control me-2" type="password" id="confirmPsw" placeholder="Confirm Password">
-                                    <input class="btn btn-outline-success" id="registerButton" type="submit" value="Register">
-                                </form>
+                                    <button class="btn btn-outline-success" id="registerButton">Register</button>
+                                </div>
                                 <a href="#" id="register">Dont have an account?</a>
                                 <a href="#" id="login">Have already an account?</a>
                             ';
@@ -69,9 +71,9 @@
             {
                 echo '
                     <div id="addArticle">
-                        <input type="text" name="newArticleTitle" placeholder="Title" id="title" required>
-                        <input type="textarea" name="newArticleContent" placeholder="Content" id="content" required>
-                        <input type="submit" value="Pubblica" id="addArticleButton">
+                        <input type="text" name="newArticleTitle" placeholder="Title" id="newArticleTitle" required>
+                        <input type="textarea" name="newArticleContent" placeholder="Content" id="newArticleContent" required>
+                        <button id="addArticleButton">Pubblica</button>
                     </div>                
                 ';
             }
@@ -85,46 +87,63 @@
     {
         $("#articles").load("php/seeArticles.php");
 
-        $("#addArticleButton").click(function()
+        function writeArticle()
         {
-            var title = $("#title").val();
-            var content = $("#content").val();
-            request = $.ajax({
-                url: "php/writeArticle.php",
-                type: "POST",
-                data: {
-                    title: title,
-                    content: content
-                }
-            });
-
-            request.done(function (response, textStatus, jqXHR){
-                request2 = $.ajax({
-                    url: "php/seeArticles.php",
-                    type: "GET"
+            var title = $("#newArticleTitle").val();
+            var content = $("#newArticleContent").val();
+            if(title != "" && content != "")
+            {
+                request = $.ajax({
+                    url: "php/writeArticle.php",
+                    type: "POST",
+                    data: {
+                        title: title,
+                        content: content
+                    }
                 });
 
-                request2.done(function (response, textStatus, jqXHR){
-                    $("#articles").html(response);
+                request.done(function (response, textStatus, jqXHR){
+                    request2 = $.ajax({
+                        url: "php/seeArticles.php",
+                        type: "GET"
+                    });
+
+                    request2.done(function (response, textStatus, jqXHR){
+                        $("#articles").html(response);
+                    });
+
+                    request2.fail(function (jqXHR, textStatus, errorThrown){
+                        console.error(
+                            "The following error occurred: "+
+                            textStatus, errorThrown
+                        );
+                    });
+
+                    $("#newArticleTitle").val("");
+                    $("#newArticleContent").val("");
                 });
 
-                request2.fail(function (jqXHR, textStatus, errorThrown){
+                request.fail(function (jqXHR, textStatus, errorThrown){
                     console.error(
                         "The following error occurred: "+
                         textStatus, errorThrown
                     );
                 });
+            }
+            else
+            {
+                alert("Please fill all the fields");
+            }
+        }
 
-                $("#title").val("");
-                $("#content").val("");
-            });
+        $("#addArticleButton").click(writeArticle());
 
-            request.fail(function (jqXHR, textStatus, errorThrown){
-                console.error(
-                    "The following error occurred: "+
-                    textStatus, errorThrown
-                );
-            });
+        $("body").keypress(function(e)
+        {
+            if(e.which == 13)
+            {
+                writeArticle();
+            }
         });
 
         $("#register").click(function()
@@ -240,7 +259,7 @@
             });
         })
 
-        $(document).on("click" , ".edit" , function()
+        /*$(document).on("click" , ".edit" , function()
         {
             parent = $(this).parent();
             parent.children("#title").html("<input type='text' id='modTitle' value='" + parent.children("#title").text() + "'>");
@@ -331,7 +350,7 @@
                     });
                 }
             })          
-        })
+        })*/
 
         $(document).on("click" , "#logout" , function()
         {

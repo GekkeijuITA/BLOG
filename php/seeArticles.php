@@ -22,9 +22,9 @@
             echo "<p class='ms-2' id='content'>".$article["text"]."</p>";
             if($ADMIN)
             {
-                echo "<a href='#' class='edit ms-2' id='ed-".$article["id"]."'>Edit</a>";
-                echo "&nbsp";
-                echo "<a href='#' class='delete' id='del-".$article["id"]."'>Delete</a>";
+                /*echo "<a href='#' class='edit ms-2' id='ed-".$article["id"]."'>Edit</a>";
+                echo "&nbsp";*/
+                echo "<a href='#' class='delete ms-2' id='del-".$article["id"]."'>Delete</a>";
             }
             echo "</div>";
         }
